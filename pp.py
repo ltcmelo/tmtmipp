@@ -14,6 +14,7 @@
 
 import argparse
 import os
+import shutil
 import sys
 from distutils.dir_util import copy_tree
 from typing import List
@@ -72,6 +73,7 @@ def _validate_input(cmd):
     if os.path.exists(out_dir):
         if os.path.isdir(out_dir):
             print(f'directory {out_dir} will be overwritten')
+            shutil.rmtree(out_dir)
         else:
             _error(f"{out_dir} isn't a directory")
 
@@ -162,7 +164,7 @@ class Preprocessor:
 
     def go(self):
         self._collect_files(self._opts.base_dir)
-        # print(f'collected {self._files}')
+        print(f'collected {self._files}')
         self._replace_content()
 
 
